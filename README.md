@@ -1,5 +1,5 @@
 # PVLoop_PINN
-![Logo](Fig_1_PV_loops_2_git.svg)
+![Logo](Fig_1_PV_loops_2.pdf)
 This is a repository to extract constitutive parameters from LV PV loops using PINNs.
 Given LV PV loop data during diastole, the algorithm recovers constitutive parameters from passive an active pressure equations.
 
