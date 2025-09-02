@@ -10,8 +10,8 @@ Follow these steps to set up your conda environment and start using this reposit
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/yourrepo.git
-cd yourrepo
+git clone https://github.com/jftopham/PVloop_PINN.git
+cd PVloop_PINN
 ```
 
 ### 2. Create the Conda Environment
@@ -52,11 +52,6 @@ Refer to the documentation or run the main script:
 ```bash
 python main.py
 ```
-_or_
-```bash
-jupyter notebook
-```
-(if your repo uses notebooks)
 
 ---
 
@@ -66,19 +61,16 @@ jupyter notebook
 
 ---
 
-**Tip:**  
-Replace `yourusername/yourrepo` and script names as appropriate for your repository!
-
 ## Citation
 
 If you use our model in your research, please cite:
 
 ```
 @article{AuthorYearModelName,
-  title={Model Name: Short Description},
-  author={Author, A. and Collaborator, B.},
+  title={A Physics-Informed machine learning approach to estimate the intrinsic diastolic properties of the Left Ventricle},
+  author={Author,Javier Fernández-Topham},
   journal={Journal Name},
   year={2025},
-  url={https://github.com/yourusername/yourrepo}
+  url={https://github.com/jftopham/PVloop_PINN}
 }
 ```
