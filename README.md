@@ -1,5 +1,5 @@
 # PVLoop_PINN
-![Logo](Fig_1_github.png)
+![Logo](PINN_definition.png)
 This is a repository to extract constitutive parameters from Left Ventricle Pressure Volume loops using PINNs.
 Given Left Ventricle Pressure Volume loop data during diastole (pressure, volume and time), the algorithm recovers constitutive parameters from passive an active pressure equations.
 
@@ -42,7 +42,7 @@ conda activate myenv
 Refer to the documentation or run the main script:
 
 ```bash
-python main.py
+python pinn_PVloop.py
 ```
 
 ---
