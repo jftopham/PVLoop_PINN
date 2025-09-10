@@ -37,15 +37,7 @@ conda activate myenv
 conda activate myenv
 ```
 
-### 4. Install Any Additional Dependencies
-
-If the repo uses `requirements.txt` for extra pip packages:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 5. Start Using the Repository
+### 4. Start Using the Repository
 
 Refer to the documentation or run the main script:
 
