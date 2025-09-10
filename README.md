@@ -39,7 +39,7 @@ conda activate myenv
 
 ### 4. Start Using the Repository
 
-Refer to the documentation or run the main script:
+Run the main script:
 
 ```bash
 python pinn_PVloop.py
