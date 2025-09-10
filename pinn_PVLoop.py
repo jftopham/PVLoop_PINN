@@ -6,13 +6,12 @@ import pandas as pd
 import torch
 import torch.nn as nn
 from random import uniform
-os.environ['KMP_DUPLICATE_LIB_OK'] = 'TRUE'
 
 # ----------------------------
 # Config
 # ----------------------------
-DATA_FOLDER = "X:/JFT/PINNs/charite_matlab_examples/IVC_occ/patients_data_occ/"  #/path/to/your/data/
-EPOCHS, FACTOR = 50, 1000
+DATA_FOLDER = "/path/to/your/data/"
+EPOCHS, FACTOR = 100, 1000
 PATIENCE, DELTA = 5000, 1e-2
 NEURONS, LAYERS = 5, 2
 OUTPUT_DIR = os.path.join(DATA_FOLDER, "output")
@@ -265,5 +264,6 @@ final_data = pd.DataFrame({
     'v0': data_append['v0_app'],
     'vm': data_append['vm_app'],    
     })
+
 
 final_data.to_excel(os.path.join(DATA_FOLDER,'output','data_output.xlsx'), index = False)
