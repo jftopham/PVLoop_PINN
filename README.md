@@ -52,7 +52,3 @@ python pinn_PVloop.py
 - For more details, see the [official conda documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
 
 ---
-  year={2025},
-  url={https://github.com/jftopham/PVloop_PINN}
-}
-```
