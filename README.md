@@ -52,16 +52,6 @@ python pinn_PVloop.py
 - For more details, see the [official conda documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
 
 ---
-
-## Citation
-
-If you use our model in your research, please cite:
-
-```
-@article{AuthorYearModelName,
-  title={A Physics-Informed machine learning approach to estimate the intrinsic diastolic properties of the Left Ventricle},
-  author={Author,Javier Fernández-Topham},
-  journal={Journal Name},
   year={2025},
   url={https://github.com/jftopham/PVloop_PINN}
 }
