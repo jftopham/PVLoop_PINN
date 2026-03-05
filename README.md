@@ -14,7 +14,6 @@ For every beat, three variables must be provided:
 
 Each variable is stored in a separate column.
 
----
 
 ### Column Naming Convention
 
@@ -33,12 +32,13 @@ Where:
   - `t_i` → time
   - `v_i` → volume
   - `p_i` → pressure
+  - 
 The number of beats is automatically inferred as:
+
 n_beats = total_number_of_columns / 3
 
 Therefore, the total number of columns in the CSV file **must be a multiple of 3**.
 
----
 
 ### Units
 
@@ -50,12 +50,9 @@ The expected units are:
 |  `v_i`  | Volume      | milliliters (ml) | unchanged                               |
 |  `p_i`  | Pressure    | mmHg             | unchanged                               |
 
----
-
 
 Each key corresponds to a specific **variable and beat index**.
 
----
 
 ### Requirements
 
