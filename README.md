@@ -3,6 +3,11 @@
 This is a repository to extract constitutive parameters from Left Ventricle Pressure Volume loops using PINNs.
 Given Left Ventricle Pressure Volume loop data during diastole (pressure, volume and time), the algorithm recovers constitutive parameters from passive an active pressure equations.
 
+## Input data format
+
+Input data should be included in .csv format for each patient, containing pressure (mmHg), volume (ml) and time (s) during diastole for each beat.
+
+
 ## Quickstart
 
 Follow these steps to set up your conda environment and start using this repository.
