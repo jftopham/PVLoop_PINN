@@ -1,54 +1,28 @@
-# DIA-PINN
-![Logo](PINN_definition.png)
-This is a repository to extract constitutive parameters from Left Ventricle Pressure Volume loops using PINNs.
-Given Left Ventricle Pressure Volume loop data during diastole (pressure, volume and time), the algorithm recovers constitutive parameters from passive an active pressure equations.
+# Input Data Format Instructions
 
-## Quickstart
+This section outlines the detailed input data format required for the code published in `pinn_PVLoop.py`.
 
-Follow these steps to set up your conda environment and start using this repository.
+## Input Data Structure
 
-### 1. Clone the Repository
+The input data should be structured as follows:
 
-```bash
-git clone https://github.com/jftopham/PVloop_PINN.git
-cd PVloop_PINN
+1. **Parameter 1**: Description of this parameter, including its expected type (e.g., integer, float) and valid range.
+2. **Parameter 2**: Description of this parameter, including its expected type (e.g., string, array) and valid values.
+3. **Parameter 3**: Description of this parameter with additional constraints or specifications.
+
+## Example Input Data
+
+An exemplar JSON format representing the input data:
+
+```json
+{
+  "parameter1": value,
+  "parameter2": ["value1", "value2"],
+  "parameter3": {
+    "subParameter1": value,
+    "subParameter2": "value"
+  }
+}
 ```
 
-### 2. Create the Conda Environment
-
-If an `environment.yml` file is provided, run:
-
-```bash
-conda env create -f environment.yml
-```
-
-If no `environment.yml` exists, create a new environment (replace `myenv` with your preferred name and python version):
-
-```bash
-conda create -n myenv python=3.9
-conda activate myenv
-# Manually install required packages:
-# conda install <package1> <package2> ...
-```
-
-### 3. Activate the Conda Environment
-
-```bash
-conda activate myenv
-```
-
-### 4. Start Using the Repository
-
-Run the main script:
-
-```bash
-python pinn_PVloop.py
-```
-
----
-
-**Troubleshooting:**
-- If you encounter issues, ensure you have [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/distribution) installed.
-- For more details, see the [official conda documentation](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
-
----
+Ensure all input data adheres to the specified formats and constraints for successful execution of the `pinn_PVLoop.py` code.
