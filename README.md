@@ -18,12 +18,7 @@ Each variable is stored in a separate column.
 ### Column Naming Convention
 
 Columns must follow this exact naming pattern:
-t_0, v_0, p_0,
-t_1, v_1, p_1,
-t_2, v_2, p_2,
-...
-t_N, v_N, p_N
-
+| t_0 | v_0 | p_0 | t_1 | v_1 | p_1 |...| t_n | v_n | p_n | 
 
 Where:
 
