@@ -12,12 +12,7 @@ For every beat, three variables must be provided:
 - **Volume (`v_i`)**
 - **Pressure (`p_i`)**
 
-Each variable is stored in a separate column.
-
-
-### Column Naming Convention
-
-Columns should follow this naming pattern:
+Each variable is stored in a separate column following this naming pattern:
 | t_0 | v_0 | p_0 | t_1 | v_1 | p_1 | ... | t_n | v_n | p_n | 
 |-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
 
