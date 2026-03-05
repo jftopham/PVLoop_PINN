@@ -3,9 +3,68 @@
 This is a repository to extract constitutive parameters from Left Ventricle Pressure Volume loops using PINNs.
 Given Left Ventricle Pressure Volume loop data during diastole (pressure, volume and time), the algorithm recovers constitutive parameters from passive an active pressure equations.
 
-## Input data format
+## Data Input Format
 
-Input data should be included in .csv format for each patient, containing pressure (mmHg), volume (ml) and time (s) during diastole for each beat.
+The model expects input data in **CSV format**, where each file contains measurements for several **cardiac beats**.  
+For every beat, three variables must be provided:
+
+- **Time (`t_i`)**
+- **Volume (`v_i`)**
+- **Pressure (`p_i`)**
+
+Each variable is stored in a separate column.
+
+---
+
+### Column Naming Convention
+
+Columns must follow this exact naming pattern:
+t_0, v_0, p_0,
+t_1, v_1, p_1,
+t_2, v_2, p_2,
+...
+t_N, v_N, p_N
+
+
+Where:
+
+- `i` is the **beat index**, starting from **0**
+- Each beat has **three columns**:
+  - `t_i` → time
+  - `v_i` → volume
+  - `p_i` → pressure
+The number of beats is automatically inferred as:
+n_beats = total_number_of_columns / 3
+
+Therefore, the total number of columns in the CSV file **must be a multiple of 3**.
+
+---
+
+### Units
+
+The expected units are:
+
+|  Column | Description |    Unit in CSV   |         Conversion in Code              |
+|---------|-------------|------------------|-----------------------------------------|
+|  `t_i`  | Time        | seconds          | converted to **milliseconds** (`×1000`) |
+|  `v_i`  | Volume      | milliliters (ml) | unchanged                               |
+|  `p_i`  | Pressure    | mmHg             | unchanged                               |
+
+---
+
+
+Each key corresponds to a specific **variable and beat index**.
+
+---
+
+### Requirements
+
+To avoid loading errors:
+
+- Column names **must exactly follow** `t_i`, `v_i`, `p_i`
+- Beat indices **must start at 0**
+- Beat indices **must be continuous**
+- The **total number of columns must be divisible by 3**
 
 
 ## Quickstart
