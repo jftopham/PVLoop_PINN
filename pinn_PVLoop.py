@@ -11,18 +11,18 @@ from random import uniform
 # Config
 # ----------------------------
 DATA_FOLDER = "/path/to/your/data/"
-EPOCHS, FACTOR = 100, 1000
+EPOCHS, FACTOR = 50, 1000 # Total iterations = EPOCHS*FACTOR
 PATIENCE, DELTA = 5000, 1e-2
 NEURONS, LAYERS = 5, 2
 OUTPUT_DIR = os.path.join(DATA_FOLDER, "output")
-os.makedirs(OUTPUT_DIR)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ----------------------------
 # Utils
 # ----------------------------
 def get_excel_files(directory):
     """Return a list of Excel files in a directory."""
-    return [f for f in os.listdir(directory) if f.lower().endswith(('.xlsx', '.xls'))]
+    return [f for f in os.listdir(directory) if f.lower().endswith(('.csv'))]
 files = get_excel_files(os.path.join(DATA_FOLDER,'examples')) # get all patients from DATA_FOLDER
 
 def cat_dict_tensors(tensor_dict, dim=1):
@@ -73,8 +73,8 @@ data_append = {k: [] for k in ['tau_app','sp_app','v0_app','vd_app','vm_app','sn
 # ----------------------------
 for item in files:
     
-    data = pd.read_excel(os.path.join(DATA_FOLDER,'examples', item))
-    n_beats = data.shape[1] // 3
+    data = pd.read_csv(os.path.join(DATA_FOLDER,'examples', item))
+    n_beats = (data.shape[1] // 3)
     
     ten = { 
             f't_{i}': torch.tensor(data[f't_{i}']*1000).unsqueeze(-1) # ms
@@ -111,7 +111,9 @@ for item in files:
     start = time.time()
     best_loss, counter = float('inf'), 0
     
-    for step in range(EPOCHS * FACTOR):
+    print (f'Proccessing patient: {item}')
+    
+    for step in range(EPOCHS * FACTOR+1):
             u_pred = pinn(inputs)
     
             # Data loss
@@ -136,6 +138,9 @@ for item in files:
             total_loss.backward()
             optimizer.step()
     
+            if step % 1000 == 0:
+                print(f'Iteration: {step}/{EPOCHS*FACTOR} --- Loss: {total_loss:.3f}')
+            
             # Early stopping
             current_loss = tau.item()+sp.item()+v0.item()+vd.item()+vm.item()
             if step > PATIENCE:
@@ -143,7 +148,8 @@ for item in files:
                     best_loss, counter = current_loss, 0
                 else:
                     counter += 1
-                if counter >= PATIENCE:
+                if counter >= PATIENCE: # To avoid transient plateau, parameters variability must be lower than DELTA during PATIENCE iterations
+                    print (f'Stopping criteria reached at {step} iterations')
                     break
     
             # Logging
@@ -152,6 +158,11 @@ for item in files:
             loss_history['loss_data'].append(loss_data.item())
             loss_history['loss_phys'].append(loss_phys.item())
             loss_history['loss_constraint'].append(loss_constraint.item())
+    end = time.time()        
+    print ('Patient proccessed.')
+    print (f'Total calculation time: {(end-start):.3f} seconds')
+    print ('---------------------------------------')
+    
     
     loss_history['times'].append(time.time()-start)
     loss_history['iterations'].append(step)
@@ -171,29 +182,9 @@ for item in files:
     plt.legend()
     plt.savefig(os.path.join(DATA_FOLDER,'output',f'{item[:-5]}_output','Convergence.pdf'), dpi=300)
     plt.close()
-    
+
     # ----------------------------
-    # Plot 2: Data Fidelity PV Loops
-    # ----------------------------
-    
-    fig1, ax1 = plt.subplots(figsize=(8, 6))
-    ax1.set_title(f"Data Fidelity - {item[:-5]}")
-    ax1.set_xlabel("Volume [ml]")
-    ax1.set_ylabel("Pressure [mmHg]")
-    ax1.grid(True)
-    
-    for j in range(n_beats):
-        v = ten[f'v_{j}'].detach().numpy()
-        p_data = ten[f'p_{j}'].detach().numpy()
-        ax1.plot(v, p_data, label=f'Real PV Data Beat {j}', linestyle='--', color='black', linewidth=2)
-        ax1.plot(ten[f'v_{j}'].detach().numpy(), u_pred.detach().numpy(), label='Data Fidelity', linewidth=2)
-    ax1.legend(loc="upper right")
-    plt.tight_layout()
-    plt.savefig(os.path.join(DATA_FOLDER,'output',f'{item[:-5]}_output','PV_Loops_Data_Fidelity.pdf'), dpi=300)
-    plt.close()
-    
-    # ----------------------------
-    # Plot 3: Final Parameters PV Loops
+    # Plot 2: Final Parameters PV Loops
     # ----------------------------
     
     # Final values
@@ -250,20 +241,23 @@ for item in files:
     data_append['loss_constraint_app'].append(loss_history['loss_constraint'][-1])
     data_append['iterations_app'].append(loss_history['iterations'][-1])
     data_append['times_app'].append(loss_history['times'][-1])
+    
 
 # ----------------------------
 # Save data
 # ----------------------------
 
 final_data = pd.DataFrame({
-    'patient': files,
-    'tau': data_append['tau_app'],
-    'sp': data_append['sp_app'],
-    'sn': data_append['sn_app'],
-    'vd': data_append['vd_app'],
-    'v0': data_append['v0_app'],
-    'vm': data_append['vm_app'],    
+    'Patient': files,
+    'tau [ms]': data_append['tau_app'],
+    'S+ [mmHg]': data_append['sp_app'],
+    'S- [mmHg]': data_append['sn_app'],
+    'Vd [ml]': data_append['vd_app'],
+    'V0 [ml]': data_append['v0_app'],
+    'Vm [ml]': data_append['vm_app'],  
+    'Total iterations': data_append['iterations_app'],
+    'Time [s]': data_append['times_app'],
     })
 
 
-final_data.to_excel(os.path.join(DATA_FOLDER,'output','data_output.xlsx'), index = False)
+final_data.to_csv(os.path.join(DATA_FOLDER,'output','data_output.csv'), index = False)
