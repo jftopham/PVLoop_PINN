@@ -38,10 +38,6 @@ The expected units are:
 |  `p_i`  | Pressure    | mmHg             | unchanged                               |
 
 
-### Requirements
-
-To avoid loading errors column names **must** be defined as `t_i`, `v_i`, `p_i`
-
 ## Quickstart
 
 Follow these steps to set up your conda environment and start using this repository.
