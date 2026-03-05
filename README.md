@@ -17,7 +17,7 @@ Each variable is stored in a separate column.
 
 ### Column Naming Convention
 
-Columns must follow this exact naming pattern:
+Columns should follow this naming pattern:
 | t_0 | v_0 | p_0 | t_1 | v_1 | p_1 | ... | t_n | v_n | p_n | 
 |-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
 
@@ -29,11 +29,7 @@ Where:
   - `v_i` → volume
   - `p_i` → pressure
   - 
-The number of beats is automatically inferred as:
-
-n_beats = total_number_of_columns / 3
-
-Therefore, the total number of columns in the CSV file **must be a multiple of 3**.
+The number of beats is automatically inferred as: n_beats = total_number_of_columns / 3
 
 
 ### Units
@@ -47,18 +43,9 @@ The expected units are:
 |  `p_i`  | Pressure    | mmHg             | unchanged                               |
 
 
-Each key corresponds to a specific **variable and beat index**.
-
-
 ### Requirements
 
-To avoid loading errors:
-
-- Column names **must exactly follow** `t_i`, `v_i`, `p_i`
-- Beat indices **must start at 0**
-- Beat indices **must be continuous**
-- The **total number of columns must be divisible by 3**
-
+To avoid loading errors column names **must** be defined as `t_i`, `v_i`, `p_i`
 
 ## Quickstart
 
